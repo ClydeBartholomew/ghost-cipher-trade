@@ -24,6 +24,7 @@ contract GhostCipherTrade is SepoliaConfig {
     /// @dev The cleartext amount is never revealed on-chain. All arithmetic
     ///      happens in encrypted space using FHE precompiles.
     function increment(externalEuint32 inputEuint32, bytes calldata inputProof) external {
+        require(msg.sender != address(0), "Zero address not allowed");
         euint32 delta = FHE.fromExternal(inputEuint32, inputProof);
 
         euint32 current = _netExposure[msg.sender];
@@ -31,7 +32,8 @@ contract GhostCipherTrade is SepoliaConfig {
 
         _netExposure[msg.sender] = updated;
 
-        FHE.allow(updated, msg.sender);  // BUG: Missing FHE.allowThis
+        FHE.allowThis(updated);
+        FHE.allow(updated, msg.sender);
     }
 
     /// @notice Decreases the caller's encrypted net exposure by an encrypted amount.
