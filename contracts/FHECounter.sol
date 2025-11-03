@@ -14,7 +14,7 @@ contract FHECounter is SepoliaConfig {
 
     /// @notice Returns the encrypted net exposure for the caller.
     /// @return The caller's encrypted net exposure handle.
-    function getCount() external returns (euint32) {  // BUG: Missing view modifier
+    function getCount() external view returns (euint32) {
         return _netExposure[msg.sender];
     }
 

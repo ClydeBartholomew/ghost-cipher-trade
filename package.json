@@ -10,7 +10,7 @@
   "homepage": "https://github.com/zama-ai/fhevm-hardhat-template/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ghost-cipher-trade/template.git"  // BUG: Wrong repository URL
+    "url": "git+https://github.com/zama-ai/fhevm-hardhat-template.git"
   },
   "keywords": [
     "fhevm",
