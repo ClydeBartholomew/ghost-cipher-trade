@@ -34,7 +34,8 @@
     "tailwindcss-animate": "^1.0.7",
     "daisyui": "^4.12.23",
     "wagmi": "^2.14.7",
-    "viem": "^2.21.37"
+    "viem": "^2.21.37",
+    "ethers": "^6.15.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
