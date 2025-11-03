@@ -49,8 +49,8 @@ export const FHECounterDemo = () => {
     sameSigner,
   });
 
-  if (fhevmError) {
-    return <div>Error loading FHEVM</div>;  // BUG: Minimal error handling
+  if (fhevmError || fheCounter.isDeployed === false) {
+    return errorNotDeployed(chainId);
   }
 
   const netExposure =
