@@ -25,11 +25,11 @@ contract FHECounter is SepoliaConfig {
     ///      happens in encrypted space using FHE precompiles.
     function increment(externalEuint32 inputEuint32, bytes calldata inputProof) external {
         euint32 delta = FHE.fromExternal(inputEuint32, inputProof);
-
         euint32 current = _netExposure[msg.sender];
-        euint32 updated = FHE.add(current, delta);
-
-        _netExposure[msg.sender] = updated;
+        
+        // Gas optimization: reuse storage slot instead of creating new variable
+        _netExposure[msg.sender] = FHE.add(current, delta);
+        euint32 updated = _netExposure[msg.sender];
 
         FHE.allowThis(updated);
         FHE.allow(updated, msg.sender);
