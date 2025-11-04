@@ -41,6 +41,7 @@ contract GhostCipherTrade is SepoliaConfig {
     /// @param inputProof Input proof produced by the FHEVM SDK.
     /// @dev For an MVP we do not enforce cleartext underflow checks on-chain.
     function decrement(externalEuint32 inputEuint32, bytes calldata inputProof) external {
+        require(msg.sender != address(0), "Zero address not allowed");
         euint32 delta = FHE.fromExternal(inputEuint32, inputProof);
 
         euint32 current = _netExposure[msg.sender];
