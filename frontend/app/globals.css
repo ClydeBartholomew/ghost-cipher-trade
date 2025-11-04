@@ -4,6 +4,17 @@
 
 /* Design system from refer app */
 @layer base {
+  /* Responsive typography scaling */
+  html {
+    font-size: clamp(14px, 2vw, 16px);
+  }
+  
+  /* Improved mobile viewport handling */
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+@layer base {
   :root {
     --background: 240 10% 3.9%;
     --foreground: 180 100% 90%;
