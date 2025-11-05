@@ -1,6 +1,11 @@
 export function errorNotDeployed(chainId: number | undefined) {
+  // Enhanced error boundary with better accessibility
+  if (typeof window !== 'undefined') {
+    console.error('Contract deployment error detected for chain:', chainId);
+  }
+  
   return (
-    <div className="grid w-full gap-4 mx-auto font-semibold bg-none">
+    <div className="grid w-full gap-4 mx-auto font-semibold bg-none" role="alert" aria-live="polite">
       <div className="col-span-full mx-20">
         <p className="text-4xl leading-relaxed">
           {" "}
