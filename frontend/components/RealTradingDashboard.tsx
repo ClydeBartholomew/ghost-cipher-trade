@@ -15,6 +15,13 @@ interface Trade {
   amount: number;
   time: string;
   type: TradeType;
+  price?: number;
+}
+
+interface TradingStats {
+  totalTrades: number;
+  totalVolume: number;
+  winRate: number;
 }
 
 export function RealTradingDashboard() {
