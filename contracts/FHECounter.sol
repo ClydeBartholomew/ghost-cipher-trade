@@ -41,11 +41,13 @@ contract FHECounter is SepoliaConfig {
     /// @dev For an MVP we do not enforce cleartext underflow checks on-chain.
     function decreaseCounter(externalEuint32 inputEuint32, bytes calldata inputProof) external {
         euint32 delta = FHE.fromExternal(inputEuint32, inputProof);
-
         euint32 current = _netExposure[msg.sender];
-        euint32 updated = FHE.sub(current, delta);
-
-        _netExposure[msg.sender] = updated;
+        
+        // Security: prevent underflow by checking if current >= delta
+        require(FHE.compare(current, delta) >= 0, "Underflow: insufficient balance");
+        
+        _netExposure[msg.sender] = FHE.sub(current, delta);
+        euint32 updated = _netExposure[msg.sender];
 
         FHE.allowThis(updated);
         FHE.allow(updated, msg.sender);
