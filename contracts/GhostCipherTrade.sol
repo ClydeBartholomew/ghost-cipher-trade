@@ -9,6 +9,10 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 /// @notice Stores a per-trader encrypted net exposure value that can only be
 ///         processed on-chain in encrypted form and decrypted off-chain by the owner.
 contract GhostCipherTrade is SepoliaConfig {
+    /// @dev Events for debugging and monitoring
+    event Increment(address indexed user, euint32 delta);
+    event Decrement(address indexed user, euint32 delta);
+    
     /// @dev Encrypted net exposure per trader (e.g. total long minus total short size).
     mapping(address => euint32) private _netExposure;
 
@@ -26,6 +30,9 @@ contract GhostCipherTrade is SepoliaConfig {
     function increment(externalEuint32 inputEuint32, bytes calldata inputProof) external {
         require(msg.sender != address(0), "Zero address not allowed");
         euint32 delta = FHE.fromExternal(inputEuint32, inputProof);
+        
+        // Debug: Log increment operation (development only)
+        emit Increment(msg.sender, delta);
 
         euint32 current = _netExposure[msg.sender];
         euint32 updated = FHE.add(current, delta);
@@ -43,6 +50,9 @@ contract GhostCipherTrade is SepoliaConfig {
     function decrement(externalEuint32 inputEuint32, bytes calldata inputProof) external {
         require(msg.sender != address(0), "Zero address not allowed");
         euint32 delta = FHE.fromExternal(inputEuint32, inputProof);
+        
+        // Debug: Log decrement operation (development only)
+        emit Decrement(msg.sender, delta);
 
         euint32 current = _netExposure[msg.sender];
         euint32 updated = FHE.sub(current, delta);
