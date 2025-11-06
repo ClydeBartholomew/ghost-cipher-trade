@@ -2,7 +2,17 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-export function WalletConnectButton() {
+interface WalletConnectButtonProps {
+  showBalance?: boolean;
+  chainStatus?: "full" | "icon" | "name" | "none";
+  accountStatus?: "full" | "avatar" | "address" | "none";
+}
+
+export function WalletConnectButton({ 
+  showBalance = true,
+  chainStatus = "icon",
+  accountStatus = "avatar"
+}: WalletConnectButtonProps = {}) {
   return (
     <ConnectButton.Custom>
       {({
