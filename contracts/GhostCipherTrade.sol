@@ -55,7 +55,7 @@ contract GhostCipherTrade is SepoliaConfig {
 
     /// @notice Returns the FHEVM protocol ID from the configuration.
     /// @return The protocol identifier for this FHEVM deployment.
-    function protocolId() external pure returns (uint256) {
+    function protocolId() external view returns (uint256) {
         return PROTOCOL_ID;
     }
 }
