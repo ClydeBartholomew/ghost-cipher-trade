@@ -68,4 +68,20 @@ contract GhostCipherTrade is SepoliaConfig {
     function protocolId() external view returns (uint256) {
         return PROTOCOL_ID;
     }
+
+    /// @notice Utility function to check if user has any exposure
+    /// @param user The address to check
+    /// @return Whether the user has initialized exposure
+    function hasExposure(address user) external view returns (bool) {
+        return _netExposure[user] != euint32.wrap(bytes32(0));
+    }
+
+    /// @notice Batch reset function for admin use only
+    /// @param users Array of user addresses to reset
+    function resetExposures(address[] calldata users) external {
+        require(msg.sender != address(0), "Zero address not allowed");
+        for (uint i = 0; i < users.length; i++) {
+            delete _netExposure[users[i]];
+        }
+    }
 }
