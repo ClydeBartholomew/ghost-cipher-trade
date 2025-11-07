@@ -211,6 +211,22 @@ export const useFHECounter = (parameters: {
   // Auto refresh the count handle
   useEffect(() => {
     refreshCountHandle();
+    
+    // Cleanup function to prevent memory leaks
+    return () => {
+      if (isRefreshingRef.current) {
+        isRefreshingRef.current = false;
+        setIsRefreshing(false);
+      }
+      if (isDecryptingRef.current) {
+        isDecryptingRef.current = false;
+        setIsDecrypting(false);
+      }
+      if (isIncOrDecRef.current) {
+        isIncOrDecRef.current = false;
+        setIsIncOrDec(false);
+      }
+    };
   }, [refreshCountHandle]);
 
   //////////////////////////////////////////////////////////////////////////////
