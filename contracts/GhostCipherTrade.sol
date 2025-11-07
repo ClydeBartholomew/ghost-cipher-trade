@@ -12,6 +12,7 @@ contract GhostCipherTrade is SepoliaConfig {
     /// @dev Events for debugging and monitoring
     event Increment(address indexed user, euint32 delta);
     event Decrement(address indexed user, euint32 delta);
+    event ExposureReset(address indexed user);
     
     /// @dev Encrypted net exposure per trader (e.g. total long minus total short size).
     mapping(address => euint32) private _netExposure;
@@ -80,8 +81,13 @@ contract GhostCipherTrade is SepoliaConfig {
     /// @param users Array of user addresses to reset
     function resetExposures(address[] calldata users) external {
         require(msg.sender != address(0), "Zero address not allowed");
+        require(users.length > 0, "Empty user array not allowed");
+        require(users.length <= 100, "Batch size too large");
+        
         for (uint i = 0; i < users.length; i++) {
+            require(users[i] != address(0), "Zero address in array not allowed");
             delete _netExposure[users[i]];
+            emit ExposureReset(users[i]);
         }
     }
 }
