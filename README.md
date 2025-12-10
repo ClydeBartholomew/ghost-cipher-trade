@@ -12,7 +12,7 @@ Ghost Cipher Trade is a decentralized application that enables traders to execut
 ## 🎥 Demo
 
 ### 🌐 Live Demo
-**[Try Ghost Cipher Trade Live →](https://ghost-cipher-trade.vercel.app/)**
+**[Try Ghost Cipher Trade Live →](https://ghost-cipher-trade-ztt.vercel.app/)**
 
 ### 📹 Video Demonstration
 Watch the full demonstration of Ghost Cipher Trade in action:
